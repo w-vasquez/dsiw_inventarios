@@ -1,0 +1,1 @@
+ALTER TABLE `bodega` ADD `direccion` VARCHAR(150) NOT NULL AFTER `estatus`;
