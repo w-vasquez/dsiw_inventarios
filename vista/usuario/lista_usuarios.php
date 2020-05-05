@@ -2,8 +2,14 @@
 	
 	<section id="container">
 		<h1>Lista de usuarios</h1><br>
+		<?php 
 
-		<a href="index.php?acc=registro_usuario"class="btn_new">Crear nuevo</a>
+		if ($_SESSION['idRol']==1)
+		{
+			echo '<a href="index.php?acc=registro_usuario"class="btn_new">Crear nuevo</a>';
+		}  
+
+		?>
 
 		<table>
 			<tr>
