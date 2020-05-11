@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 22-04-2020 a las 20:45:43
+-- Tiempo de generación: 11-05-2020 a las 21:20:09
 -- Versión del servidor: 10.1.38-MariaDB
 -- Versión de PHP: 7.3.4
 
@@ -265,6 +265,10 @@ select * FROM vw_ordenestotales_wvp$$
 DROP PROCEDURE IF EXISTS `sp_consultaproductosCP_de`$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_consultaproductosCP_de` (IN `_Nombre` VARCHAR(50))  NO SQL
 SELECT * FROM vw_productos_wvp WHERE vw_productos_wvp.Nombre = _Nombre$$
+
+DROP PROCEDURE IF EXISTS `sp_consultaProductosCP_wvp`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_consultaProductosCP_wvp` (IN `_cod` INT)  NO SQL
+SELECT * FROM vw_inventario_wvp WHERE vw_inventario_wvp.id_producto = _cod$$
 
 DROP PROCEDURE IF EXISTS `sp_consultaproductosSP_de`$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_consultaproductosSP_de` ()  NO SQL
@@ -1623,7 +1627,8 @@ CREATE TABLE `vw_estantes_wvp` (
 --
 DROP VIEW IF EXISTS `vw_inventario_wvp`;
 CREATE TABLE `vw_inventario_wvp` (
-`producto` varchar(50)
+`id_producto` int(11)
+,`producto` varchar(50)
 ,`Marca` varchar(50)
 ,`Unidad_medida` varchar(10)
 ,`foto` varchar(50)
@@ -1631,9 +1636,12 @@ CREATE TABLE `vw_inventario_wvp` (
 ,`Cantidad_maxima` int(11)
 ,`estatus` char(1)
 ,`nom_provee` varchar(25)
+,`id_bodega` int(11)
+,`id_estante` int(11)
+,`id_nivel` int(11)
 ,`bodega` varchar(50)
 ,`estante` varchar(25)
-,`Nivel` varchar(25)
+,`nivel` varchar(25)
 ,`Cantidad_existencia` decimal(10,2)
 ,`Costo_total` decimal(10,2)
 ,`costo_unitario` double
@@ -1875,7 +1883,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `vw_inventario_wvp`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vw_inventario_wvp`  AS  select `p`.`Nombre` AS `producto`,`p`.`Marca` AS `Marca`,`p`.`Unidad_medida` AS `Unidad_medida`,`p`.`foto` AS `foto`,`p`.`Cantidad_minima` AS `Cantidad_minima`,`p`.`Cantidad_maxima` AS `Cantidad_maxima`,`p`.`estatus` AS `estatus`,`pr`.`Nombre` AS `nom_provee`,`b`.`Nombre` AS `bodega`,`e`.`Nombre` AS `estante`,`n`.`Nivel` AS `Nivel`,`i`.`Cantidad_existencia` AS `Cantidad_existencia`,`i`.`Costo_total` AS `Costo_total`,`fn_costoUnitario_wvp`(`i`.`Costo_total`,`i`.`Cantidad_existencia`) AS `costo_unitario` from (((((`inventario` `i` join `nivel` `n` on((`n`.`id_nivel` = `i`.`id_nivel`))) join `estante` `e` on((`e`.`id_estante` = `n`.`id_estante`))) join `productos` `p` on((`p`.`id_producto` = `i`.`id_producto`))) join `proveedores` `pr` on((`pr`.`id_proveedor` = `p`.`Id_proveedor`))) join `bodega` `b` on((`b`.`id_bodega` = `e`.`id_bodega`))) ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vw_inventario_wvp`  AS  select `p`.`id_producto` AS `id_producto`,`p`.`Nombre` AS `producto`,`p`.`Marca` AS `Marca`,`p`.`Unidad_medida` AS `Unidad_medida`,`p`.`foto` AS `foto`,`p`.`Cantidad_minima` AS `Cantidad_minima`,`p`.`Cantidad_maxima` AS `Cantidad_maxima`,`p`.`estatus` AS `estatus`,`pr`.`Nombre` AS `nom_provee`,`b`.`id_bodega` AS `id_bodega`,`e`.`id_estante` AS `id_estante`,`i`.`id_nivel` AS `id_nivel`,`b`.`Nombre` AS `bodega`,`e`.`Nombre` AS `estante`,`n`.`Nivel` AS `nivel`,`i`.`Cantidad_existencia` AS `Cantidad_existencia`,`i`.`Costo_total` AS `Costo_total`,`fn_costoUnitario_wvp`(`i`.`Costo_total`,`i`.`Cantidad_existencia`) AS `costo_unitario` from (((((`inventario` `i` join `nivel` `n` on((`n`.`id_nivel` = `i`.`id_nivel`))) join `estante` `e` on((`e`.`id_estante` = `n`.`id_estante`))) join `productos` `p` on((`p`.`id_producto` = `i`.`id_producto`))) join `proveedores` `pr` on((`pr`.`id_proveedor` = `p`.`Id_proveedor`))) join `bodega` `b` on((`b`.`id_bodega` = `e`.`id_bodega`))) ;
 
 -- --------------------------------------------------------
 
@@ -2172,7 +2180,7 @@ ALTER TABLE `productos`
 -- AUTO_INCREMENT de la tabla `proveedores`
 --
 ALTER TABLE `proveedores`
-  MODIFY `id_proveedor` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id_proveedor` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT de la tabla `roles`
