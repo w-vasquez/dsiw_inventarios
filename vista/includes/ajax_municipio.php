@@ -19,7 +19,7 @@
 
 		$lista = $mMunicipio -> consultar_municipio($cnnAux,$_POST['id']);
 
-		var_dump($lista);
+		//var_dump($lista);
 		foreach ($lista as $value) 
 		{
 			$html = "<option value='".$value['id_municipio']."'>".$value['municipio']."</option>";

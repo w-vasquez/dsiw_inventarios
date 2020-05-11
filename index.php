@@ -1,7 +1,4 @@
 <?php
-	
-	
-
 	require ('modelo/conexion.php');	
 	require ('modelo/conexionAux.php');
 	require ('controlador/usuario/cUsuario.php');
@@ -182,6 +179,14 @@
 		case 'lista_proveedor':
 			session_start();	
 			$cProveedor -> lista_proveedor($cnn);
+			break;
+		case 'registro_movimiento':
+			session_start();
+			if($opc==0)
+			{
+				require 'vista/movimiento/registro_movimiento.php';
+			}
+			
 			break;
 		default:
 			# code...

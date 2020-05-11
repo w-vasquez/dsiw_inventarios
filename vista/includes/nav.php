@@ -19,21 +19,21 @@
 				<a href="#">Bodega</a>
 				<ul>
 					<li><a href="index.php?acc=registro_bodega&opc=0">Nueva Bodega</a></li>
-					<li><a href="#">Lista de Bodega</a></li>
+					<li><a href="index.php?acc=lista_bodega">Lista de Bodega</a></li>
 				</ul>
 			</li>
 			<li class="principal">
 				<a href="#">Proveedores</a>
 				<ul>
-					<li><a href="#">Nuevo Proveedor</a></li>
-					<li><a href="#">Lista de Proveedores</a></li>
+					<li><a href="index.php?acc=registro_proveedor&opc=0">Nuevo Proveedor</a></li>
+					<li><a href="index.php?acc=lista_proveedor">Lista de Proveedores</a></li>
 				</ul>
 			</li>
 			<li class="principal">
 				<a href="#">Productos</a>
 				<ul>
 					<li><a href="index.php?acc=registro_producto&opc=0">Nuevo Producto</a></li>
-					<li><a href="#">Lista de Productos</a></li>
+					<li><a href="index.php?acc=lista_producto">Lista de Productos</a></li>
 				</ul>
 			</li>
 			<li class="principal">
