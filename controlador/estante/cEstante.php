@@ -42,12 +42,48 @@
 		{
 			$this->modelo->consulta_estante($cnn);
 			$lista = $this->modelo->lista;
+			//var_dump($lista);
 			require 'vista/estante/lista_estante.php';
 		}
 
 		function lista_select_estantes($cnn,$id_bodega,$stt)
 		{
 			return $this->modelo->consulta_select_estante($cnn,$id_bodega,$stt);
+		}
+
+		function editar_estante($cnn,$id_estante,$lista_bodega)
+		{
+			$this->modelo->consulta_estante_id($cnn,$id_estante);
+			$registro = $this->modelo->lista;
+
+			
+			if(count($registro)>0)
+			{
+				foreach ($registro as $key) {
+					//echo $key['id_estante'];
+					$id_estante = $key['id_estante'];
+					$ID = $key['ID'];
+					$bodega_nom = $key['bodega'];
+					$estante_nom = $key['estante'];
+					$estatus = $key['estatus'];
+					$num_niveles = $key['num_niveles'];
+				}
+				
+				require 'vista/estante/editar_estante.php';
+			}
+		}
+
+		function actualizar_estante($cnn,$lista_bodega)
+		{
+			$id_estante = $_POST['id'];
+			$estante = $_POST['nombre'];
+			$status = $_POST['status'];
+			$id_bodega = $_POST['id_bodega'];
+
+			$statu_registro = $this->modelo->modificar_estante($cnn,$id_estante,$estante,$status,$id_bodega);
+			mysqli_close($cnn);
+
+
 		}
 	}
 

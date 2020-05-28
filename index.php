@@ -14,7 +14,6 @@
 	require ('controlador/departamento/cDepartamento.php');
 
 
-
 	$cUsuario = new cUsuario();
 	$cRol = new cRol();
 	$cBodega = new cBodega();
@@ -35,7 +34,6 @@
 	
 	switch ($acc) 
 	{
-
 		case 'inicio':
 			session_start();
 			require 'vista/master.php';
@@ -99,11 +97,24 @@
 			session_start();	
 			$cEstante -> lista_estantes($cnn);
 			break;
+		case 'editar_estante':
+			session_start();
+			$idEstante = isset($_GET['idEstante']) ? $_GET['idEstante'] : 0;
+			$lista_bodega = $cBodega -> get_bodega($cnnAux1);
+			//print_r($lista_bodega);
+			$cEstante -> editar_estante($cnn,$idEstante,$lista_bodega);
+			
+			break;
+		case 'actualizar_estante':
+			session_start();
+			$lista_bodega = $cBodega -> get_bodega($cnnAux1);	
+			$cEstante -> actualizar_estante($cnnAux2,$lista_bodega);
+			break;
 		case 'registro_nivel':
 			session_start();
 			if ($opc==0) {
 
-				$lista_bodega = $cBodega -> get_bodega($cnn);
+				$lista_bodega = $cBodega -> get_bodega($cnnAux1);
 				//print_r($lista_bodega);
 				
 				//var_dump($lista_estantes);
