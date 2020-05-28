@@ -25,14 +25,13 @@
 			<tr>
 
 			<?php foreach ($lista as $key) {
-
 				echo '<td>'.$key['ID'].'</td>';
 				echo '<td>'.$key['bodega'].'</td>';
 				echo '<td>'.$key['estante'].'</td>';
 				echo '<td>'.$key['estatus'].'</td>';
 				echo '<td>'.$key['num_niveles'].'</td>';
 				echo '<td>';
-				echo '<a class="link_edit" href="index.php?acc=editar_estante&idEstante='.$key['id_estante'].'"> Editar</a> | ';
+				echo '<a class="link_edit" href="#"> Editar</a> | ';
 				echo '<a class="link_delete" href="#">Eliminar</a>';
 
 			?>

@@ -14,6 +14,7 @@
 	require ('controlador/departamento/cDepartamento.php');
 
 
+
 	$cUsuario = new cUsuario();
 	$cRol = new cRol();
 	$cBodega = new cBodega();
@@ -32,8 +33,10 @@
 	$opc = isset($_GET['opc']) ? $_GET['opc'] : 0;
 	$idusr = isset($_GET['id']) ? $_GET['id'] : 0;
 	
+	//$_idProc = isset($_GET['id_producto']) ? $_GET['id_producto'] : 0;
 	switch ($acc) 
 	{
+
 		case 'inicio':
 			session_start();
 			require 'vista/master.php';
@@ -97,24 +100,11 @@
 			session_start();	
 			$cEstante -> lista_estantes($cnn);
 			break;
-		case 'editar_estante':
-			session_start();
-			$idEstante = isset($_GET['idEstante']) ? $_GET['idEstante'] : 0;
-			$lista_bodega = $cBodega -> get_bodega($cnnAux1);
-			//print_r($lista_bodega);
-			$cEstante -> editar_estante($cnn,$idEstante,$lista_bodega);
-			
-			break;
-		case 'actualizar_estante':
-			session_start();
-			$lista_bodega = $cBodega -> get_bodega($cnnAux1);	
-			$cEstante -> actualizar_estante($cnnAux2,$lista_bodega);
-			break;
 		case 'registro_nivel':
 			session_start();
 			if ($opc==0) {
 
-				$lista_bodega = $cBodega -> get_bodega($cnnAux1);
+				$lista_bodega = $cBodega -> get_bodega($cnn);
 				//print_r($lista_bodega);
 				
 				//var_dump($lista_estantes);
@@ -151,6 +141,61 @@
 			session_start();
 			$cProducto -> lista_producto($cnn);
 			break;
+			
+			case 'editar_Producto';
+			session_start();
+    			$id_pro=isset($_GET['id_pro'])?$_GET['id_pro']:0;
+			//	echo 'hola mundo'.$id_pro;
+				$lista_categoria = $cCategoria->get_categoria($cnn);
+				$lista_proveedor = $cProveedor->get_proveedor($cnnAux2);
+				$cProducto-> editar_Producto($cnn,$id_pro,$lista_categoria,$lista_proveedor);
+			
+			break;
+		case 'actualizar_Producto':
+			session_start();
+		$lista_categoria = $cCategoria->get_categoria($cnn);
+		$lista_proveedor = $cProveedor->get_proveedor($cnnAux1);
+				
+		$cProducto->actualizar_Producto($cnnAux2,$lista_categoria,$lista_proveedor);
+			break;
+
+		case 'Eliminar Producto':
+			$id_producto=$_GET['_id_producto'];
+			$consulta=$cProducto -> EliminarProducto($cnn);
+        ////Redireccionar al listado de clientes
+		    $consulta=$mProducto->consulta_producto($cnn);
+			///$mensaje="location:cClientes.php?acc=1";
+			require('../vista/producto/lista_producto.php');  
+			break; 	
+			/*
+			case 'r1':
+        //Para el reporte de clientes
+        $resp=$cliente->ConsultaClientes($cnn);
+        //Cargar la vista para mostrar todos los clientes
+        //require('../reportes/reporteclientes.php');
+        $_SESSION['resp']=$resp->fetch_all(MYSQLI_ASSOC); //mysqli_fetch_all($resp, MYSQLI_ASSOC)
+        //Pasando un arreglo asociativo con todos los datos de la consulta
+        header('location:../reportes/reporteclientes.php');
+        break;  
+    case 'g1':
+        //Para el reporte de clientes
+        //$resp=$cliente->ConsultaClientes($cnn);
+        require('../vista/vClientes.php');
+        break;
+		
+			
+		case 'r1':
+        $resp=$cProducto->lista_producto($cnn);
+		 $_SESSION['resp']=$resp->fetch_all(MYSQLI_ASSOC); //mysqli_fetch_all($resp, MYSQLI_ASSOC)
+		header('location:../reportes/reporteProductos.php');
+        break;
+		/*
+		case 'g1':
+        //Para el reporte de clientes
+        //$resp=$cliente->ConsultaClientes($cnn);
+        require('../vista/vClientes.php');
+        break;
+		*/
 		case 'registro_bodega':
 			session_start();
 			if($opc==0)
