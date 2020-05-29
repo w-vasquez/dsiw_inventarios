@@ -1,9 +1,9 @@
 <?php
 session_start();
-if ($_SESSION['idRol']==1)
-			{
-		
-			}  
+if(!isset($_SESSION['idRol']))
+{
+	header('location:../index.php');
+}
 
 $resp=$_SESSION['resp'];
 require('fpdf/fpdf.php');

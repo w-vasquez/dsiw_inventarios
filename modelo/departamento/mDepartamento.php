@@ -11,7 +11,7 @@
 		{
 			$sql = "call sp_consultarDepartamento_wvp;";
 			$mysqli = mysqli_query($cnn,$sql);
-
+			mysqli_close($cnn);
 			while($row = mysqli_fetch_array($mysqli))
 			{
 				$this->lista_departamento[] = $row;

@@ -90,7 +90,7 @@
 			session_start();
 			$idbodega = isset($_GET['idbodega']) ? $_GET['idbodega'] : 0;
 			$lista_departamento = $cDepartamento->get_departamento($cnnAux1);
-			//echo'HOLA dany'.$idbodega;
+			//print_r($idbodega);
 			$cBodega -> editar_bodega ($cnn,$idbodega,$lista_departamento);
 				
 					
@@ -156,6 +156,13 @@
 			
 			$_SESSION['resp']=$cEstante -> lista_estantes2($cnn);
 			header('location: reportes/reporte_estante.php');
+			break;
+
+		case 'reporte_productos':
+			session_start();
+			
+			$_SESSION['resp']=$cProducto -> lista_estantes2($cnn);
+			header('location: reportes/reporte_producto.php');
 			break;
 		case 'registro_nivel':
 			session_start();
