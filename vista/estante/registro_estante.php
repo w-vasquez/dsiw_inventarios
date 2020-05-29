@@ -20,12 +20,11 @@
 				<label for="id_bodega">Bodega a asignadar</label>
 				<select name="id_bodega" id="id_bodega">	
 				<?php 
-					//print_r($listaRol);
+					
 					foreach ($lista_bodega as $key) 
 					{
-						echo '<option value='.$key['id_bodega'].'>'.$key['nombre'].'</option>';
+						echo '<option value='.$key['id_bodega'].'>'.$key['Nombre'].'</option>';
 					}
-
 				 ?>
 				</select>
 				

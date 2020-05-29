@@ -90,6 +90,7 @@
 			if($opc==1)
 			{
 				$lista_bodega = $cBodega -> get_bodega($cnnAux1);
+				
 				$cEstante->registro_estante($cnn,$lista_bodega);
 			}
 			break;
@@ -109,6 +110,12 @@
 			session_start();
 			$lista_bodega = $cBodega -> get_bodega($cnnAux1);	
 			$cEstante -> actualizar_estante($cnnAux2,$lista_bodega);
+			break;
+		case 'reporte_estante':
+			session_start();
+			
+			$_SESSION['resp']=$cEstante -> lista_estantes2($cnn);
+			header('location: reportes/reporte_estante.php');
 			break;
 		case 'registro_nivel':
 			session_start();

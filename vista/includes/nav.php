@@ -41,6 +41,7 @@
 				<ul>
 					<li><a href="index.php?acc=registro_estante&opc=0">Nuevo estante</a></li>
 					<li><a href="index.php?acc=lista_estantes">Lista de estantes</a></li>
+					<li><a href="index.php?acc=reporte_estante">Reporte de estantes</a></li>
 				</ul>
 			</li>
 			<li class="principal">

@@ -46,6 +46,14 @@
 			require 'vista/estante/lista_estante.php';
 		}
 
+		function lista_estantes2($cnn)
+		{
+			$this->modelo->consulta_estante($cnn);
+			$lista = $this->modelo->lista;
+			return $lista;
+			
+		}
+
 		function lista_select_estantes($cnn,$id_bodega,$stt)
 		{
 			return $this->modelo->consulta_select_estante($cnn,$id_bodega,$stt);
@@ -79,9 +87,24 @@
 			$estante = $_POST['nombre'];
 			$status = $_POST['status'];
 			$id_bodega = $_POST['id_bodega'];
-
+			
 			$statu_registro = $this->modelo->modificar_estante($cnn,$id_estante,$estante,$status,$id_bodega);
 			mysqli_close($cnn);
+
+			//var_dump ($statu_registro);
+
+
+			if($statu_registro==1)
+			{
+				//echo 'bien';
+				header('location: index.php?acc=lista_estantes');
+			}else
+			{
+				//echo 'error';
+				
+				$alert = '<p class="msg_error">Nombre de estante ya ha sido asignado</p>';
+				require 'vista/estante/editar_estante.php';
+			}
 
 
 		}

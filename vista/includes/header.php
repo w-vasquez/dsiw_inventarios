@@ -1,3 +1,14 @@
+<?php
+	//session_start();
+	if(!isset($_SESSION['idRol']))
+	{
+		header('location:../index.php');
+	}
+?>
+
+
+
+
 <!DOCTYPE html>
 <html lang="ES">
 <head>
