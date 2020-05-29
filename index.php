@@ -28,7 +28,7 @@
 
 	#lista de roles
 	
-	
+	echo 'prueba ola';
 	$acc = isset($_GET['acc']) ? $_GET['acc'] : "login";
 	$opc = isset($_GET['opc']) ? $_GET['opc'] : 0;
 	$idusr = isset($_GET['id']) ? $_GET['id'] : 0;
@@ -124,7 +124,7 @@
 		case 'registro_producto':
 			session_start();
 			if($opc==0)
-			{ 
+			   { 
 				$lista_categoria = $cCategoria -> get_categoria($cnn);
 				$lista_proveedor = $cProveedor -> get_proveedor($cnnAux1);
 				require('vista/producto/registro_producto.php');
@@ -138,28 +138,28 @@
 			}
 			break;
 		case 'lista_producto';
-			session_start();
-			$cProducto -> lista_producto($cnn);
-			break;
+				session_start();
+				$cProducto -> lista_producto($cnn);
+				break;
 			
-			case 'editar_Producto';
-			session_start();
+		case 'editar_Producto';
+			    session_start();
     			$id_pro=isset($_GET['id_pro'])?$_GET['id_pro']:0;
-			//	echo 'hola mundo'.$id_pro;
-				$lista_categoria = $cCategoria->get_categoria($cnn);
+			    
+				$lista_categoria = $cCategoria->get_categoria($cnnAux1);
 				$lista_proveedor = $cProveedor->get_proveedor($cnnAux2);
 				$cProducto-> editar_Producto($cnn,$id_pro,$lista_categoria,$lista_proveedor);
-			
-			break;
-		case 'actualizar_Producto':
-			session_start();
-		$lista_categoria = $cCategoria->get_categoria($cnn);
-		$lista_proveedor = $cProveedor->get_proveedor($cnnAux1);
+			    break;
 				
-		$cProducto->actualizar_Producto($cnnAux2,$lista_categoria,$lista_proveedor);
-			break;
-
+		case 'actualizar_Producto':
+			  session_start();
+				$lista_categoria = $cCategoria->get_categoria($cnnAux1);
+				$lista_proveedor = $cProveedor->get_proveedor($cnnAux2);
+				$cProducto->actualizar_Producto($cnn,$lista_categoria,$lista_proveedor);
+				break;
+		
 		case 'Eliminar Producto':
+			session_start();
 			$id_producto=$_GET['_id_producto'];
 			$consulta=$cProducto -> EliminarProducto($cnn);
         ////Redireccionar al listado de clientes

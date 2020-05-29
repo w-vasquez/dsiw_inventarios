@@ -72,17 +72,17 @@ function editar_Producto($cnn,$id_producto,$lista_categoria,$lista_proveedor)
 			if(count($registro)>0)
 			{
 				foreach ($registro as $key) {
-				$id_pro =$key['id_producto'];	
-			    $nom = $key['Nombre'];
+				$id_producto =$key['id_producto'];	
+			    $Nombre = $key['Nombre'];
 				//$foto =  $_FILES['foto']['name'];
-				$uni = $key['Unidad_medida'];
-				$id_proveedor = $key['proveedor'];
-				$max = $key['Cantidad_minima'];
-				$min = $key['Cantidad_maxima'];
-				$marca = $key['Marca'];
-				$esta = $key['estatus'];
-                $costo = $key['cto_uni'];	
-				$id_categoria =$key['categoria'];
+				$Unidad_medida = $key['Unidad_medida'];
+				$proveedor = $key['proveedor'];
+				$Cantidad_minima = $key['Cantidad_minima'];
+				$Cantidad_maxima = $key['Cantidad_maxima'];
+				$Marca = $key['Marca'];
+				$estatus = $key['estatus'];
+                $cto_uni = $key['cto_uni'];	
+				$categoria =$key['categoria'];
 				
 				
 				}
@@ -97,46 +97,34 @@ function editar_Producto($cnn,$id_producto,$lista_categoria,$lista_proveedor)
 		{
 			if ($_POST) 
 			{
-				$id_pro =$_POST['id_producto '];
+				
 				$nom = $_POST['nombre'];
-				$foto =  $_POST['img_prodc']['name'];
-				$uni = $_POST['uni_medida'];
+         //$foto =  $_POST['img_prodc']['name'];
+				$uni = $_POST['Unidad_medida'];
 				$id_proveedor = $_POST['id_proveedor'];
-				$max = $_POST['cant_max'];
 				$min = $_POST['cant_mini'];
+				$max = $_POST['cant_max'];
 				$marca = $_POST['marca'];
-				$esta = $_POST['estatus'];
-                $costo = $_POST['cto_uni'];	
-				$id_categoria =$_POST['id_categoria '];
+				$estatus = $_POST['estatus'];
+				$id_categoria =$_POST['id_categoria'];
+				$costo = $_POST['cto_uni'];	
+				$id_pro=$_POST['id_producto'];
 				
 				
+		/*
+		statu_registro = $this->modelo->ModificarProductos($cnn,$nom,$uni,$id_proveedor,$max,$min,$marca,$esta,$costo,$id_categoria,$id_pro);
 		
-				$statu_registro = $this->modelo->ModificarProductos($cnn,$nom,$foto,$uni,$id_proveedor,$max,$min,$marca,$esta,$costo,$id_categoria,$_idProc);
+		*/
+			$statu_registro = $this->modelo->ModificarProductos($cnn,$nom,$uni,$id_proveedor,$max,$min,$marca,$estatus,$costo,$id_categoria,$id_pro);
 		
-				if($statu_registro)
-				{
-					header('location: index.php?acc=lista_producto');
-				}
-				
-		
-				if($statu_registro)
-				{
-					header('location: index.php?acc=lista_producto');
-				}
-				else
-				{
-					$id_producto= $id_producto;
-					$nom =  $nombre;
-					$alert = '<p class="msg_error">Producto ya existe</p>';
-					require 'vista/producto/modificar_producto.php';
-					
-				}	
+				mysqli_close($cnn);
 
 				header('location: index.php?acc=lista_producto');
 			}
 			else
-			{	header('location: index.php?acc=lista_producto');}
-		}
+			{	header('location: index.php?acc=lista_producto');
+		    }
+		}	
 	}
 
  ?>

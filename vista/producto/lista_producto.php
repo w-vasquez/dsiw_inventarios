@@ -27,14 +27,15 @@
 				<th>Costo Unitario</th>
 				<th>Categoría</th>
 				<th>Acción</th>
-				<th>Eliminar</th>
-			   <th>Modificar</th>
+				<th>Eliminar   </th>
+			   <th>Modificar </th>
 			</tr>
 			<tr>
 
 			<?php foreach ($lista as $key) {
 				echo '<td>'.$key['id_producto'].'</td>';
-				/*echo '<td>'.$key['foto'].'</td>';*/
+				echo '<td>'.$key['Nombre'].'</td>';
+				//echo '<td>'.$key['foto'].'</td>';
 				echo '<td>'.$key['Nombre'].'</td>';
 				echo '<td>'.$key['Unidad_medida'].'</td>';
 				echo '<td>'.$key['proveedor'].'</td>';
@@ -45,9 +46,7 @@
 				echo '<td>'.$key['cto_uni'].'</td>';
 				echo '<td>'.$key['categoria'].'</td>';
 				echo '<td>';
-			
-				$ventana="window.open('index.php?acc=5&_id_producto=".$key['id_producto']."','','top=200,left=300,width=550,height=550')";
-			echo '<td><a href="#" onclick="'.$ventana.'"">Ventana</a></td>';
+				
 			$confirmar="return confirm('Estas seguro de Eliminar el registro?');";
 			echo '<td><a href="index.php?acc=5&id='.$key['id_producto'].'" onclick="'.$confirmar.'">Eliminar</a></td>';
 						

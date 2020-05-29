@@ -1,5 +1,5 @@
 <?php
- include ('vista/includes/header.php'); 
+ include ('vista/includes/header.php'); 	
 ?>
 
 	<section id="container">
@@ -8,62 +8,79 @@
 			<hr>
 			<div class="alert"><?php echo isset($alert) ? $alert : "" ; ?></div>
 
-			<form action="index.php?acc=actualizar_producto&opc=1" method="POST" enctype="multipart/form-data">
+			<form action="index.php?acc=actualizar_Producto&opc=1" method="POST" enctype="multipart/form-data">
 			
+			   
+				<input  type ="hidden" name = "id_producto" >
 				<label for="Nombre">Nombre del producto</label>
 				<input type="text" name="nombre" value=" <?php echo $Nombre ?> "required="required">
             	
 				<label for="img_prodc">Imagen</label>
-				<input type="file" name="img_prodc" size="25">
+				<input type="file" name="img_prodc" size="25" value=" <?php echo $foto ?>">
 
-				<label for="uni_medida">Unidad de medida</label>
-				<input type="text" name="uni_medida"<?php echo $uni_medida ?>  required="required">
-	           <label for="id_proveedor">Nombre proveedor</label>
-				<select name="id_proveedor" id="id_proveedor">	
-				<?php 
+				<label for="Unidad_medida">Unidad de medida</label>
+				<input type="text" name="Unidad_medida"  value = "<?php echo $Unidad_medida ?>  "required="required">
+	           
+			   <label for="id_proveedor">Nombre proveedor</label>
+				<select name="id_proveedor" id="id_proveedor" class = "notItemOne">	
+				
+				<?php
+					echo  '<valor de opción ='.$id_proveedor.'>'.$proveedor.'</option>' ;
 					//print_r($listaRol);
 					foreach ($lista_proveedor as $key) 
 					{
-						echo '<option value='.$key['ID'].'>'.$key['Nombre'].'</option>';
+						echo '<option value='.$key['id_proveedor'].'>'.$key['Nombre'].'</option>';
 					}
 
 				 ?>
-</select>
+  </select>
 				<label for="cant_mini">Cantidad mínima</label>
-				<input type="text" name="cant_mini" id="cant_mini" placeholder="Cantidad mínima" required="required">
+				<input type="text" name="cant_mini" id="cant_mini" value = "<?php echo $Cantidad_minima?>   "required="required">
 
 				<label for="cant_max">Cantidad máxima </label>
-				<input type="text" name="cant_max" id="cant_max" placeholder="Cantidad máxima" required="required">
+				<input type="text" name="cant_max" id="cant_max"value ="<?php echo $Cantidad_maxima?> "  required="required">
 			
 			
 				<label for="Marca">Marca </label>
-				<input type="text" name="marca" id="Marca" placeholder="Marca" required="required">
+				<input type="text" name="marca" id="marca"value = "<?php echo $Marca?>   "required="required">
 
-			
-				<label for="id_categoria">Categoría</label>
-				<select name="id_categoria" id="id_categoria">	
+			 <label  for ="estatus"> Estatus </label >				
+				<select name ="estatus"id="estatus" class="notItemOne">
+
 				<?php 
+             $opcion = '<option value = "I" select> Inactivo </option>';
+							
+							if ($estatus == 'Activo')
+							{
+								$opcion = '<option value = "A" select> Activo </option>' ;
+							}
+
+							echo  $opcion ;
+							echo  '<option value = "A"> Activo </option>' ;
+							echo  '<option value = "I"> Inactivo </option>' ;
+					?>
+				</select >
+				<label for="id_categoria">Categoría</label>
+				<select name="id_categoria" id="id_categoria" class = "notItemOne">	
+				<?php 
+			    echo'<option>'.$key['categoria'].'</option>';
 					//print_r($listaRol);
 					foreach ($lista_categoria as $key) 
 					{
-						echo '<option value='.$key['id_categoria'].'>'.$key['nombre'].'</option>';
+						echo '<option value='.$key['categoria'].'>'.$key['nombre'].'</option>';
 					}
 
 				 ?>
 				</select>
 
-
-				<label for="Marca">estatus </label>
-				<input type="text" name="estatus" id="estatus" placeholder="estatus" required="required">
-
 	           <label for="Marca">Costo Unitario </label>
-				<input type="text" name="cto_uni" id="cto_uni" placeholder="cto_uni" required="required">
+				<input type="text" name="cto_uni" 	value = "<?php echo $cto_uni ?> "required="required">
 
-
-				<input type="submit" value="Modificar productos" class="btn_save">
+           
+				<input type="submit" value="Actualizar productos" class="btn_save">
 			</form>
 
 		</div>
 	</section>
 	
-<?php include ('vista/includes/footer.php');  ?> q
+<?php include ('vista/includes/footer.php');  ?> 

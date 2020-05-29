@@ -8,7 +8,7 @@
 			<div class="alert"><?php echo isset($alert) ? $alert : "" ; ?></div>
 
 			<form action="index.php?acc=registro_producto&opc=1" method="POST" enctype="multipart/form-data">
-				
+				<input  type ="hidden" name ="id_producto" >
 				<label for="Nombre">Nombre del producto</label>
 				<input type="text" name="nombre" id="Nombre" placeholder="Nombre completo" required="required">
             	
@@ -28,13 +28,14 @@
 
 				 ?>
 </select>
-				
-				<label for="cant_max">Cantidad máxima </label>
-				<input type="text" name="cant_max" id="cant_max" placeholder="Cantidad máxima" required="required">
-			  
+  
 			  <label for="cant_mini">Cantidad mínima</label>
 				<input type="text" name="cant_mini" id="cant_mini" placeholder="Cantidad mínima" required="required">
 
+			
+				
+				<label for="cant_max">Cantidad máxima </label>
+				<input type="text" name="cant_max" id="cant_max" placeholder="Cantidad máxima" required="required">
 			
 				<label for="Marca">Marca </label>
 				<input type="text" name="marca" id="Marca" placeholder="Marca" required="required">
