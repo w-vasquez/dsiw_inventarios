@@ -19,7 +19,7 @@ $pdf->cell(10,10,'Codigo',1,0,'C');
 $pdf->cell(50,10,'Bodega',1,0,'C');
 $pdf->cell(20,10,'Estante',1,0,'C');
 $pdf->cell(50,10,'Estatus',1,0,'C');
-$pdf->cell(50,10,'Correo',1,0,'C');
+$pdf->cell(50,10,'Numero de niveles',1,0,'C');
 //$pdf->cell(20,10,'Telefono',1,0,'C');
 $pdf->ln(10);
 //Mostrar los datos

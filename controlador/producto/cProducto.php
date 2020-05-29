@@ -69,14 +69,7 @@
 			}
 		}
 
-	 function EliminarProducto($cnn,$id_producto)
-	{
-		
-	 $result = $this->modelo->EliminarUnProducto($cnn,$id_producto);
-
-		$resultado=mysqli_query($cnn,"CALL Sp_EliminarProducto_ksn('".$id_producto."');");
-		return $resultado;
-	}	
+	 
 
 
 
