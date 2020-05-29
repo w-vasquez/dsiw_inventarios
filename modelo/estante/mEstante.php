@@ -73,31 +73,6 @@
 			return $this->lista;
 		}
 
-		function consulta_estante_id($cnn,$id_estante)
-		{
-			$sql = "CALL sp_consultaEstanteCP_wvp (".$id_estante.");";
-			//echo $sql;
-			//$query = $cnn->query($sql);
-			$query = mysqli_query($cnn,$sql);
-			
-
-			while($row = mysqli_fetch_array($query))
-			{
-				$this->lista[] = $row;
-			}
-			
-		}
-
-		function modificar_estante($cnn,$id_estante,$estante,$status,$id_bodega)
-		{
-			  
-			$sql = "CALL sp_ModificarEstante_ksn (".$id_estante.",'".$estante."','".$status."',".$id_bodega.");";
-			echo $sql;
-			$query = mysqli_query($cnn,$sql);
-			$row = mysqli_fetch_array($query);
-			return $row['RS'];
-		}
-
 
 	}
 

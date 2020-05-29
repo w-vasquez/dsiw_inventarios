@@ -34,6 +34,8 @@
 				<ul>
 					<li><a href="index.php?acc=registro_producto&opc=0">Nuevo Producto</a></li>
 					<li><a href="index.php?acc=lista_producto">Lista de Productos</a></li>
+					<a href="reportes/reporteProductos.php?" >Imprimir</a> |
+					
 				</ul>
 			</li>
 			<li class="principal">

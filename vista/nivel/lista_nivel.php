@@ -29,7 +29,7 @@
 				echo '<td>'.$key['estante'].'</td>';
 				echo '<td>'.$key['bodega'].'</td>';
 				echo '<td>';
-				echo '<a class="link_edit" href="#"> Editar</a> | ';
+				echo '<a class="link_edit" href="index.php?acc=editar_niveles&idniveles='.$key['id_nivel'].'"> Editar</a> | ';
 				echo '<a class="link_delete" href="#">Eliminar</a>';
 
 			?>

@@ -142,7 +142,7 @@
 		{
 			$this->modelo->consulta_Usuario($cnn,$id);
 			$registro = $this->modelo->lista;
-
+			//var_dump($registro);
 			if(count($registro)>0)
 			{
 				foreach ($registro as $key) {
