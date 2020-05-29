@@ -147,28 +147,27 @@
 
 			return false;
 		}
-		public function ModificarProductos($cnn,$nom,$foto,$uni,$id_proveedor,$max,$min,$marca,$esta,$costo,$id_categoria,$_idProc)
+		
+		/*
+		
+		public function ModificarProductos($cnn,$nom,$uni,$id_proveedor,$max,$min,$marca,$esta,$costo,$id_categoria,$id_pro)
 		{
-			$resultado=mysqli_query($cnn,"CALL sp_modificarProductos_wvp('".$nom."','".$foto.
-			"','".$uni."','".$id_proveedor."','".$max."','".$min."','".$marca."','".$esta."','".$costo."','".$id_categoria."','".$_idProc."');");	
-			//echo "CALL sp_modificarProductos_wvp('".$cod."','".$nom."','".$dir."','".$cor."','".$tel."','".$cla."','".$ciu."');";
-		  $query = mysqli_query($cnn,$sql);
+		   echo $sql ="CALL sp_modificarProductos_wvps('".$nom."','".$uni."','".$id_proveedor."','".$max."','".$min."','".$marca."','".$esta."','".$costo."','".$id_categoria."','".$id_pro."');";
 
-			//guardar valores desde el SP
-			while ($row = mysqli_fetch_array($query)) 
-			{
-				$this->lista[] = $row;
-			}
-
-			foreach ($this->lista as $key) 
-			{
+            $query = mysqli_query($cnn,$sql);
+            $rs = mysqli_fetch_array($query);
+            return $rs;
 				
-				if ($key['0']=='true') 
-				{
-					return true;
-					//$this->$img = $key['1']; 
-				}
-			}		
+		}
+		*/
+		public function ModificarProductos($cnnAux2,$nom,$uni,$id_proveedor,$max,$min,$marca,$esta,$costo,$id_categoria,$id_pro)
+		{
+		   echo $sql="CALL sp_modificarProductos_wvp('".$nom."','".$uni."','".$id_proveedor."','".$max."','".$min."','".$marca."','".$esta."','".$costo."','".$id_categoria."','".$id_pro."');";
+
+            $query = mysqli_query($cnnAux2,$sql);
+            $rs = mysqli_fetch_array($query);
+            return $rs;
+				
 		}
 
 
