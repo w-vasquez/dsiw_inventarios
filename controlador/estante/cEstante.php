@@ -42,7 +42,6 @@
 		{
 			$this->modelo->consulta_estante($cnn);
 			$lista = $this->modelo->lista;
-			//var_dump($lista);
 			require 'vista/estante/lista_estante.php';
 		}
 

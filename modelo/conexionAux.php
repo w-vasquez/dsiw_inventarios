@@ -21,7 +21,7 @@
 				die("Mensaje de conexión: ". $mysqli->connect_errno." - ".$mysqli->connect_error);
 
 			}
-			mysqli_set_charset( $mysqli, 'utf8');
+			
 			$this->conexAux = $mysqli;
 			return $mysqli;
 		}
@@ -41,7 +41,7 @@
 				die("Mensaje de conexión: ". $mysqli->connect_errno." - ".$mysqli->connect_error);
 
 			}
-			mysqli_set_charset( $mysqli, 'utf8');
+			
 			$this->conexAux1 = $mysqli;
 			return $mysqli;
 		}
@@ -56,7 +56,7 @@
 				die("Mensaje de conexión: ". $mysqli->connect_errno." - ".$mysqli->connect_error);
 
 			}
-			mysqli_set_charset( $mysqli, 'utf8');
+			
 			$this->conexAux2 = $mysqli;
 			return $mysqli;
 		}
@@ -71,7 +71,7 @@
 				die("Mensaje de conexión: ". $mysqli->connect_errno." - ".$mysqli->connect_error);
 
 			}
-			mysqli_set_charset( $mysqli, 'utf8');
+			
 			$this->conexAux3 = $mysqli;
 			return $mysqli;
 		}
