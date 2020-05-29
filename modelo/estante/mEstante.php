@@ -90,15 +90,12 @@
 
 		function modificar_estante($cnn,$id_estante,$estante,$status,$id_bodega)
 		{
+			  
 			$sql = "CALL sp_ModificarEstante_ksn (".$id_estante.",'".$estante."','".$status."',".$id_bodega.");";
 			echo $sql;
 			$query = mysqli_query($cnn,$sql);
-
-			
-
-			print_r ($query);
-
-			return $query;
+			$row = mysqli_fetch_array($query);
+			return $row['RS'];
 		}
 
 
