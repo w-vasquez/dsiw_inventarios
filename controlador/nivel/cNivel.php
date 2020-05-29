@@ -39,6 +39,28 @@
 			$lista = $this->modelo->consulta_nivel($cnn);
 			require('vista/nivel/lista_nivel.php');
 		}
+		function editar_niveles($cnn,$id_nivel,$lista_bodega)
+		{
+			$this->modelo->consulta_nivel2($cnn,$id_nivel);
+			$lista = $this->modelo->lista;
+			//var_dump($lista);
+
+			
+			
+				foreach ($lista as $key) 
+				{
+					$id_nivel = $key['id_nivel'];
+					$Nivel= $key['Nivel'];
+					$estatus=$key['estatus'];
+					$bodega = $key['bodega'];
+					$estante = $key['estante'];
+				
+					
+				}
+				
+				require 'vista/nivel/editar_niveles.php';
+			
+		}
 	}
 
 

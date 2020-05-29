@@ -51,6 +51,16 @@
 			}
 			return $this->lista;
 		}
+		function consulta_nivel2 ($cnn,$id_nivel)
+		{
+			$sql = "call sp_consultanivelSP_de('".$id_nivel."')";
+			$query = mysqli_query($cnn,$sql);
+			while($row = mysqli_fetch_array($query))
+			{
+				$this->lista[]=$row;
+			}
+			return $this->lista;
+		}
 	}
 
  ?>

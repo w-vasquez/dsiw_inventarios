@@ -65,6 +65,42 @@
 			}
 
 			break;
+		case 'registro_bodega':
+			session_start();
+			if($opc==0)
+			{ 
+				$lista_departamento = $cDepartamento->get_departamento($cnn);
+				require('vista/bodega/registro_bodega.php');
+			}
+			
+			if($opc==1)
+			{
+				$lista_departamento = $cDepartamento->get_departamento($cnnAux1);
+				//print_r($lista_departamento);
+				$cBodega->registro_bodega($cnn,$lista_departamento);
+				
+			}	
+			
+			break;
+		case 'lista_bodega':
+			session_start();
+				$cBodega -> lista_bodega($cnn,"");
+			break;
+		case 'editar_bodega':
+			session_start();
+			$idbodega = isset($_GET['idbodega']) ? $_GET['idbodega'] : 0;
+			$lista_departamento = $cDepartamento->get_departamento($cnnAux1);
+			//echo'HOLA dany'.$idbodega;
+			$cBodega -> editar_bodega ($cnn,$idbodega,$lista_departamento);
+				
+					
+			break;
+		case 'actualizar_bodega':
+			session_start();
+			$lista_departamento = $cDepartamento->get_departamento($cnnAux1);
+				$cBodega -> actualizar_bodega($cnn,$lista_departamento);
+			break;
+		
 		case 'lista_usuarios':
 
 			session_start();	
@@ -78,6 +114,7 @@
 				$cUsuario -> editar_usuario($cnn,$idusr,$listaRol);
 			}
 			break;
+
 		case 'actualizar_usuario':
 			session_start();
 			$listaRol = $cRol->getRol($cnnAux1);
@@ -140,6 +177,13 @@
 		case 'lista_nivel':
 			session_start();
 			$cNivel -> listado_nivel($cnn);
+			break;
+		case 'editar_niveles':
+			session_start();
+			$idniveles = isset($_GET['idniveles']) ? $_GET['idniveles'] : 0;
+			$lista_bodega = $cBodega -> get_bodega($cnnAux1);
+			//echo'HOLA dany'.$idniveles;
+			$cNivel -> editar_niveles ($cnn,$idniveles,$lista_bodega);
 			break;
 		case 'registro_producto':
 			session_start();
@@ -220,23 +264,43 @@
 			session_start();
 			if($opc==0)
 			{ 
-				$lista_departamento = $cDepartamento->get_departamento($cnn);
-				require('vista/bodega/registro_bodega.php');
-			}
-			
-			if($opc==1)
-			{
-				$lista_departamento = $cDepartamento->get_departamento($cnnAux1);
-				//print_r($lista_departamento);
-				$cBodega->registro_bodega($cnn,$lista_departamento);
+		        $nom = $_POST['nombre'];
+				$foto =  $_FILES['img_prodc']['name'];
+				$marca = $_POST['marca'];
+				$uni = $_POST['uni_medida'];
+				$id_categoria = $_POST['id_categoria'];
+				$id_proveedor = $_POST['id_proveedor'];
+				$min = $_POST['cant_mini'];
+				$max = $_POST['cant_max'];
 				
-			}	
-			
+		$lista_categoria = $cCategoria -> get_categoria($cnn);
+		$lista_proveedor = $cProveedor -> get_proveedor($cnnAux1);
+	$cProducto -> Modificar_producto($cnnAux2,$lista_categoria,$lista_proveedor);
+		
+		require('vista/producto/modificar_producto.php');
+		
+        	}
 			break;
-		case 'lista_bodega':
-			session_start();
-			$cBodega -> lista_bodega($cnn,"");
+		case 5:
+			$id_producto=$_GET['_id_producto'];
+			$consulta=$cProducto -> EliminarProducto($cnn);
+        ////Redireccionar al listado de clientes
+		    $consulta=$mProducto->consulta_producto($cnn);
+			///$mensaje="location:cClientes.php?acc=1";
+			require('../vista/producto/lista_producto.php');  
 			break;
+		case 'r1':
+        //Para el reporte de clientes
+        $resp=$cProducto->lista_producto($cnn);
+		 
+        //Cargar la vista para mostrar todos los clientes
+        //require('../reportes/reporteProductos.php');
+        $_SESSION['resp']=$resp->fetch_all(MYSQLI_ASSOC); //mysqli_fetch_all($resp, MYSQLI_ASSOC)
+        //Pasando un arreglo asociativo con todos los datos de la consulta
+        header('location:../reportes/reporteProductos.php');
+        break;
+		
+		
 		case 'registro_proveedor':
 		   session_start();
 			if($opc==0)
@@ -252,6 +316,7 @@
 				
 			}
 			break;
+			
 		case 'lista_proveedor':
 			session_start();	
 			$cProveedor -> lista_proveedor($cnn);

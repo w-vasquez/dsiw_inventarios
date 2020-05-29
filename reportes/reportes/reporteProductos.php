@@ -1,6 +1,6 @@
 <?php
 session_start();
-if(!isset($_SESSION['idRol']==1))
+if(!isset($_SESSION['idRol']))
 {
 	header('location:../index.php');
 }
