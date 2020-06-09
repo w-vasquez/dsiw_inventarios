@@ -56,8 +56,14 @@
 			<li class="principal">
 				<a href="">Movimientos</a>
 				<ul>
-					<li><a href="index.php?acc=registro_movimiento">Movimiento de inventario</a></li>
+					<li><a href="index.php?acc=registro_entrada">Movimiento de inventario</a></li>
 					<li><a href="index.php?acc=lista_movimiento">Lista de movimientos</a></li>
+				</ul>
+			</li>
+			<li class="principal">
+				<a href="">Inventario</a>
+				<ul>
+					<li><a href="index.php?acc=lista_inventario">Lista de movimientos</a></li>
 				</ul>
 			</li>
 			

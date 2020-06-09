@@ -266,6 +266,15 @@ input,select,textarea{
 	margin: 20px;
 }
 
+.btn_ok{
+	display: inline-block;
+	background: red;
+	color: #FFF;
+	padding: 5px 25px;
+	border-radius: 4px;
+	margin: 20px;
+}
+
 table{
 	border-collapse: collapse;
 	font-size: 12pt;
@@ -392,4 +401,57 @@ margin-top:10px
 	margin: 0 3px;
 	color: #FFF;
 }
+/****** modal *****/
 
+.modal{
+	position: fixed;
+	width: 100%;
+	height: 100vh;
+	background: rgba(0, 0, 0, 0.81);
+	display: none; /*importante para que el modal no aparezca todo el tiempo (block)*/
+}
+
+.modalNewProduct{
+	position: fixed;
+	width: 100%;
+	height: 100vh;
+	background: rgba(0, 0, 0, 0.81);
+	display: none; /*importante para que el modal no aparezca todo el tiempo (block)*/
+}
+
+.bodyModal{
+	width: 100%;
+	height: 100%;
+	display: -webkit-inline-flex;
+	display: -moz-inline-flex;
+	display: -ms-inline-flex;
+	display: -o-inline-flex;
+	display: inline-flex;
+	justify-content: center;
+	align-items: center;
+}
+.modal h1{
+	color: #058167;
+	text-transform: uppercase;
+}
+
+.modal h2{
+	text-transform: uppercase;
+	margin: 15px;
+}
+
+.modal label{
+	text-align: left;
+	font-size: 9pt;
+	padding: 0px;
+
+}
+
+#form_add_product{
+	width: 420px;
+	text-align: center;
+}
+
+#form_add_product input{
+	margin-top: 0px;
+}

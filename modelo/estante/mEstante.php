@@ -92,7 +92,7 @@
 		{
 			  
 			$sql = "CALL sp_ModificarEstante_ksn (".$id_estante.",'".$estante."','".$status."',".$id_bodega.");";
-			echo $sql;
+			//echo $sql;
 			$query = mysqli_query($cnn,$sql);
 			$row = mysqli_fetch_array($query);
 			return $row['RS'];

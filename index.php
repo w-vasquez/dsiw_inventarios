@@ -8,11 +8,10 @@
 	require ('controlador/nivel/cNivel.php');
 	require ('controlador/categoria/cCategoria.php');
 	require ('controlador/producto/cProducto.php');
-
 	require ('controlador/municipio/cMunicipio.php');
 	require ('controlador/proveedor/cProveedor.php');
 	require ('controlador/departamento/cDepartamento.php');
-
+	require ('controlador/concepto/cConcepto.php');
 
 
 	$cUsuario = new cUsuario();
@@ -328,13 +327,19 @@
 			session_start();	
 			$cProveedor -> lista_proveedor($cnn);
 			break;
-		case 'registro_movimiento':
+		case 'registro_entrada':
 			session_start();
-			if($opc==0)
-			{
-				require 'vista/movimiento/registro_movimiento.php';
-			}
-			
+			$cConcepto = new cConcepto();
+			$lista_bodega = $cBodega -> get_bodega($cnn);
+			mysqli_close($cnn);
+			$lista_concepto = $cConcepto -> get_concepto($cnnAux1,1);
+			require 'vista/movimiento/registro_entrada.php';
+			break;
+		case 'lista_inventario';
+			require 'controlador/inventario/cInventario.php';
+			session_start();
+			$cInventario = new cInventario();
+			$cInventario -> lista_inventario($cnn);
 			break;
 		default:
 			# code...

@@ -59,7 +59,7 @@
 		{
 			$this->modelo->consulta_bodega2($cnn,$id_bodega);
 			$lista = $this->modelo->lista_bodega;
-			var_dump($lista);
+			//var_dump($lista);
 
 			
 			

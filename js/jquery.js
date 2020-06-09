@@ -48,6 +48,55 @@ $(document).ready(function(e){
 
 	})
 
+	//configuracion select concepto
+	//$('#select_concepto_entrada').select(function(e){
+	$('#principal_bodega_deshabilitar').click(function(e){
+		e.preventDefault(); //prevenir que se recargue la página
+		//var tipo = $(this).val() //omito capturar valor
+		var action = 'searchTipo'
+		
+		$.ajax({
+			url: 'vista/includes/ajax.php',
+			type: "post",
+			async: true,
+			data: {action:action},//,tipo:tipo},
+			success: function(response){
+				//console.log(response);
+				$("#select_concepto_entrada").html(response)
+			},
+			error: function(error){
+
+			}
+
+		})
+	})
+
+	//boton guardar orden
+	$('#form_orden').submit(function(e){
+		e.preventDefault();
+
+		$.ajax({
+			url: 'vista/includes/ajax.php',
+			type: "post",
+			async: true,
+			data: $('#form_orden').serialize(), //obtenemos todos los datos del form
+			success: function(response){
+				console.log(response)
+				if(response == 0){
+					$('mensaje').html('Identificar bodega y tipo de salida');
+				}
+			},
+			error: function(){
+
+			}
+
+		})
+
+
+
+	})
+
+
 	$('#txt_cod_producto').keyup(function(e){
 		e.preventDefault(); //prevenir que se recargue la página
 		var prodc = $(this).val() //obtener valor
