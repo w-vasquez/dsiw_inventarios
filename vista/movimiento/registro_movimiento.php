@@ -31,10 +31,11 @@
 					<td><input type="text" name="txt_cod_producto" id="txt_cod_producto"></td>
 					<input type="hidden" name="cod_producto" id="cod_producto" value="">
 					<input type="hidden" name="cto_uni" id="cto_uni" value="">
+					<input type="hidden" name="orden" id="orden_id" value="">
 					<td id="txt_producto"> -- </td>
-					<td><select name="select_bodega" id="select_bodega" disabled></select></td>
-					<td><select name="select_estante" id="select_estante" disabled></select></td>
-					<td><select name="select_nivel" id="select_nivel" disabled></select></td>
+					<td><select name="select_bodega" id="select_bodega_add" disabled></select></td>
+					<td><select name="select_bodega" id="select_estante_add" disabled></select></td>
+					<td><select name="select_nivel" id="select_nivel_add" disabled></select></td>
 					<td id="txt_existencia"> -- </td>
 					<td><input type="text" name="txt_cant_producto" id="txt_cant_producto" value="0" min="1" disabled></td>
 					<td name="txt_precio" id="txt_precio" class="textright">0.00</td>
@@ -52,40 +53,17 @@
 					<th>Acción</th>
 				</tr>
 			</thead>
-			<tbody>
-				<tr>
-					<td>1</td>
-					<td colspan="2">martillo</td>
-					<td>Bodega A</td>
-					<td>Estante A</td>
-					<td>Nivel 2</td>
-					<td>12</td>
-					<td>9</td>
-					<td class="">
-						<a href="link_delete" href="#" onclick="event.preventDefault(); del_product_detalle(1);"><i class="far fa-trash-alt">borrar</i></a>
-					</td>
-				</tr>
-				<tr>
-					<td>10</td>
-					<td colspan="2">serrucho</td>
-					<td>Bodega A</td>
-					<td>Estante B</td>
-					<td>Nivel 2</td>
-					<td>12</td>
-					<td>9</td>
-					<td class="">
-						<a href="link_delete" href="#" onclick="event.preventDefault(); del_product_detalle(1);"><i class="far fa-trash-alt">borrar</i></a>
-					</td>
-				</tr>
+			<tbody id="detalle_venta">
+				<!-- contenido ajax -->
 			</tbody>
-			<tfoot>
-				<tr>
-					<td colspan="7" class="textleft">COSTO</td>
-					<td class="textright">18</td>
-				</tr>
+			<tfoot id="detalle_total">
+				<!-- ajax -->
 			</tfoot>
 		</table>
 	</section>
+
+
+
 
 
 <?php include ('vista/includes/footer.php');  ?> 

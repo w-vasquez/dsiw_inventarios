@@ -34,8 +34,12 @@
 				<ul>
 					<li><a href="index.php?acc=registro_producto&opc=0">Nuevo Producto</a></li>
 					<li><a href="index.php?acc=lista_producto">Lista de Productos</a></li>
-					<a href="reportes/reporteProductos.php?" >Imprimir</a> |
-					
+					<li><a href="reportes/reporteProductos.php?" >Imprimir</a> </li>
+					<li><a href="index.php?acc=grafico_productos" >Grafico 3</a> </li>
+					<li><a href="index.php?acc=graph_pie_preductos" >Grafico Costos Productos</a> </li>
+					<li><a href="index.php?acc=graph_barras_preductos" >Grafico Costos barras</a> </li>
+
+
 				</ul>
 			</li>
 			<li class="principal">
@@ -56,7 +60,7 @@
 			<li class="principal">
 				<a href="">Movimientos</a>
 				<ul>
-					<li><a href="index.php?acc=registro_entrada">Movimiento de inventario</a></li>
+					<li><a href="index.php?acc=registro_movimiento">Movimiento de inventario</a></li>
 					<li><a href="index.php?acc=lista_movimiento">Lista de movimientos</a></li>
 				</ul>
 			</li>

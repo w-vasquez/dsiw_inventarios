@@ -11,6 +11,16 @@
 			$this -> modelo = new mProducto;
 		}	
 
+
+		public function llamarConsulta($cnn)
+		{
+			
+			//$consulta =mysqli_query($cnn,'CALL sp_Productos_vendidos;');
+			$_SESSION['consulta'] =  $this->modelo -> consultaGraficio($cnn);
+			require 'vista/graficos/grafico3.php';
+
+		}
+
 		function registro_producto($cnn,$lista_categoria,$lista_proveedor)
 		{
 			if ($_POST) 

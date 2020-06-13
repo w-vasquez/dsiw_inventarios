@@ -78,7 +78,15 @@ $(document).ready(function(e){
 				if(response != 'error'){
 					$("#producto_id_new").html('<option value="0" selected="selected">Seleccionar producto</option>');
 					$('#producto_id_new').append(response);	
+					$("#bodega_id_new").html('<option value="0" selected="selected">Seleccionar bodega</option>');
+					$('#bodega_id_new').attr('disabled','disabled');
+					$("#estante_id_new").html('<option value="0" selected="selected">Seleccionar estante</option>');
+					$('#estante_id_new').attr('disabled','disabled');
+					$("#nivel_id_new").html('<option value="0" selected="selected">Seleccionar nivel</option>');
+					$('#nivel_id_new').attr('disabled','disabled');
 				}else{
+					$("#producto_id_new").html('<option value="0" selected="selected">Registro no identificado</option>');
+					$('#producto_id_new').attr('disabled','disabled');
 					$("#bodega_id_new").html('<option value="0" selected="selected">Seleccionar bodega</option>');
 					$('#bodega_id_new').attr('disabled','disabled');
 					$("#estante_id_new").html('<option value="0" selected="selected">Seleccionar estante</option>');
@@ -198,6 +206,8 @@ function closeModal(){
 	$('#txtPrecio').val('');
 	$('.modal').fadeOut(); //cerrar el modal
 	$('.modalNewProduct').fadeOut();
+	location.reload();
+	//$('.load').load('lista_inventario.php');
 }
 
 //funcion para enviar datos. Metodo aplicado en el Header (modal) y se envía por el form
@@ -265,13 +275,44 @@ function sendDataNewProduct(){
 				
 
 				//limpiamos los campos del modal
-				$('#txtCantidad').val('');
-				$('#txtPrecio').val('');
+				$('#txtCantidad_new').val('');
+				$('#txtPrecio_new').val('');
+				//Restablecer selects
+				$("#producto_id_new").html('<option value="0" selected="selected">Seleccionar producto</option>');
+				//$('#producto_id_new').attr('disabled','disabled');
+				$("#bodega_id_new").html('<option value="0" selected="selected">Seleccionar bodega</option>');
+				$('#bodega_id_new').attr('disabled','disabled');
+				$("#estante_id_new").html('<option value="0" selected="selected">Seleccionar estante</option>');
+				$('#estante_id_new').attr('disabled','disabled');
+				$("#nivel_id_new").html('<option value="0" selected="selected">Seleccionar nivel</option>');
+				$('#nivel_id_new').attr('disabled','disabled');
 
 				//mostrar el mensaje
 				$('.alertAddProduct').html('<p> producto guardado correctamente </p>');
 				
 			}
+		},
+
+		error: function(error){
+			console.log(error);
+		}
+	});
+}
+
+function searchForDetalle(id){
+	var action = 'searchForDetalle';
+	var user = id;
+
+
+	$.ajax({
+		url: 'vista/includes/ajax.php',
+		type: 'POST',
+		async: true,
+		data: {action:action,user:user},	
+	
+		success: function(response){
+			console.log(response); //para observar datos que vienen del ajax
+			
 		},
 
 		error: function(error){

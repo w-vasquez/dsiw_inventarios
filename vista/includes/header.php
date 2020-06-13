@@ -83,10 +83,10 @@
 				<select name="nivel_id" id="nivel_id_new" disabled></select>
 				
 				<label for="txtCantidad">Cantidad:</label>
-				<input type="number" min="0" name="cantidad" id="txtCantidad" placeholder="cantidad requerida" required>
+				<input type="number" min="0" name="cantidad" id="txtCantidad_new" placeholder="cantidad requerida" required>
 				
 				<label for="txtPrecio">Costos total:</label>
-				<input type="text" name="precio" id="txtPrecio" placeholder="costo total producto" required>
+				<input type="text" name="precio" id="txtPrecio_new" placeholder="costo total producto" required>
 				
 				<input type="hidden" name="action" id="action" value="addNewProdc">
 				<input type="hidden" name="stt" id="stt" value="addProdc">

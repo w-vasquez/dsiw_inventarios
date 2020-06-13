@@ -2,7 +2,7 @@
 	session_start();
 	require '../../modelo/conexionAux.php';
 
-	//print_r($_POST);exit;//comprobar si lee
+	// print_r($_POST);exit;//comprobar si lee
 
 	if(!empty($_POST))
 	{
@@ -10,7 +10,7 @@
 		if( $_POST['action'] == 'addNewProdc' )
 		{
 			$opc = $_POST['stt'];
-			switch ($opc)
+			switch ($opc) //ejecuta la consula según stt
 			{
 				case 'producto':
 					$sql = "CALL sp_consultaproductosSP_de ();";
@@ -27,18 +27,29 @@
 					$estante_id = $_POST['estante_id'];
 					$sql = "CALL sp_consultaNivelBodegaEstante_wvp ($bodega_id,$estante_id);";
 				break;
-				case 'addProdc':
-					if(!empty($_POST['producto_id']) || !empty($_POST['bodega_id']) || !empty($_POST['estante_id']) || !empty($_POST['nivel_id']) || !empty($_POST['cantidad']) || !empty($_POST['precio']))
+				case 'addProdc': 
+					//cuando los componentes se son disabled el post no envía datos
+
+					$bodega_id = !empty($_POST['bodega_id']) ? $_POST['bodega_id'] : 0;
+					$estante_id = !empty($_POST['estante_id']) ? $_POST['estante_id'] : 0;
+					$nivel_id = !empty($_POST['nivel_id']) ? $_POST['nivel_id'] : 0;
+
+					//var_dump($_POST);
+					if( ($_POST['producto_id']!=0) && ($bodega_id!=0) && ($estante_id!=0) && ($nivel_id!=0) && !empty($_POST['cantidad']) && !empty($_POST['precio']))
 					{
+						
 						$producto_id = $_POST['producto_id'];	
-						$bodega_id = $_POST['bodega_id'];	
-						//$estante_id = $_POST['estante_id'];	
-						$nivel_id = $_POST['nivel_id'];	
+					// 	$bodega_id = $_POST['bodega_id'];	
+					//  $estante_id = $_POST['estante_id'];	
+					// 	$nivel_id = $_POST['nivel_id'];	
 						$cantidad = $_POST['cantidad'];	
 						$precio = $_POST['precio'];	
 						$usuario_id = $_SESSION['idUsu'];
-						$sql = "CALL sp_consultaNivelBodegaEstante_wvp ($bodega_id,$estante_id);";
+						//$sql = "CALL sp_consultaNivelBodegaEstante_wvp ($bodega_id,$estante_id);";
 						$sql = "call sp_entradaMovimiento_wvp ($cantidad,$precio,$producto_id,$nivel_id,$bodega_id,$usuario_id)";
+					}else{
+						echo 'error';
+						exit;
 					}
 				break;
 			}
@@ -47,7 +58,7 @@
 			$result = mysqli_num_rows($query);
 			if($result > 0)
 			{
-				switch($opc)
+				switch($opc) //ordena los datos para enviar al modal
 				{
 					case 'producto':
 						while($row = mysqli_fetch_assoc($query)) 
@@ -154,7 +165,7 @@
 		//buscar producto
 		if($_POST['action'] == 'searchProdc')
 		{
-			//print_r($_POST);
+			
 			if (!empty($_POST['producto'])) 
 			{
 				$cod=$_POST['producto'];
@@ -165,7 +176,9 @@
 				$data = '';
 				if ($result>0) 
 				{
+
 					$data = mysqli_fetch_assoc($query);
+					//print_r($data);
 					//mysqli_fetch_assoc
 					//mysqli_fetch_array
 				}
@@ -222,79 +235,232 @@
 		if ($_POST['action'] == 'searchBodega') 
 		{
 			$cod=$_POST['producto'];
-			$sql = "CALL sp_consultaProductosCP_wvp ($cod)";
+			$sql = "select distinct(id_bodega), bodega from vw_inventario_wvp where id_producto = $cod";
 			$query = mysqli_query($cnnAux1,$sql);
-			$detalle = mysqli_fetch_all($query);
-			$arr = unique_multidim_array($detalle,9);
-			//var_dump($detalle);
-			//print_r($arr);
+			$result = mysqli_num_rows($query);
 
-			foreach ($arr as $value) 
+			if($result >0)
 			{
-				$html = "<option value='".$value[9]."'>".$value[12]."</option>";
-				echo $html;
+				//print_r(mysqli_fetch_assoc($query));
+				while ($row = mysqli_fetch_assoc($query)) 
+				{
+					$html = "<option value='".$row['id_bodega']."'>".$row['bodega']."</option>";
+					echo $html;
+				}
 			}
+			else
+			{
+				echo 'error';
+			}
+			
 		}
 
 		if ($_POST['action'] == 'searchEstante') 
 		{
-			$cod=$_POST['producto'];
-			$sql = "CALL sp_consultaProductosCP_wvp ($cod)";
-			$query = mysqli_query($cnnAux1,$sql);
-			$detalle = mysqli_fetch_all($query);
-			$arr = unique_multidim_array($detalle,10);
-			//var_dump($detalle);
-			//print_r($arr);
+			$cod=$_POST['producto_id'];
+			$bodega_id = $_POST['bodega_id'];
 
-			foreach ($arr as $value) 
+			$sql = "select distinct(id_estante), estante from vw_inventario_wvp where id_producto = $cod and id_bodega = $bodega_id;";
+			$query = mysqli_query($cnnAux1,$sql);
+			$result = mysqli_num_rows($query);
+
+			if($result >0)
 			{
-				$html = "<option value='".$value[10]."'>".$value[13]."</option>";
-				echo $html;
+				
+				while ($row = mysqli_fetch_assoc($query)) 
+				{
+					$html = "<option value='".$row['id_estante']."'>".$row['estante']."</option>";
+					echo $html;
+				}
+			}
+			else
+			{
+				echo 'error';
 			}
 		}
 
 		if ($_POST['action'] == 'searchNivel') 
 		{
-			$cod=$_POST['producto'];
-			$sql = "CALL sp_consultaProductosCP_wvp ($cod)";
-			$query = mysqli_query($cnnAux1,$sql);
-			$detalle = mysqli_fetch_all($query);
-			$arr = unique_multidim_array($detalle,11);
-			//var_dump($detalle);
-			//print_r($arr);
+			$cod=$_POST['producto_id'];
+			$bodega_id=$_POST['bodega_id'];
+			$estante_id=$_POST['estante_id'];
 
-			foreach ($arr as $value) 
+			$sql = "select distinct(id_nivel), nivel from vw_inventario_wvp where id_producto = $cod and id_bodega = $bodega_id and id_estante = $estante_id;";
+			$query = mysqli_query($cnnAux1,$sql);
+			$result = mysqli_num_rows($query);
+
+			if($result >0)
 			{
-				$html = "<option value='".$value[11]."'>".$value[14]."</option>";
-				echo $html;
+				
+				while ($row = mysqli_fetch_assoc($query)) 
+				{
+					$html = "<option value='".$row['id_nivel']."'>".$row['nivel']."</option>";
+					echo $html;
+				}
+			}
+			else
+			{
+				echo 'error';
 			}
 		}
 
 		if ($_POST['action'] == 'searchExistencia') 
 		{
-			$p=$_POST['producto'];
-			$b=$_POST['bodega'];
-			$e=$_POST['estante'];
-			$n=$_POST['nivel'];
+			$cod = $_POST['producto_id'];
+			$bodega_id = $_POST['bodega_id'];
+			$estante_id = $_POST['estante_id'];
+			$nivel_id = $_POST['nivel_id'];
 
-			$sql = "CALL sp_consultaProductosCP_wvp ($p)";
+			$sql = "select cantidad_existencia from vw_inventario_wvp where id_producto = $cod and id_bodega = $bodega_id and id_estante = $estante_id and id_nivel = $nivel_id;";
+
 			$query = mysqli_query($cnnAux1,$sql);
-			$detalle = mysqli_fetch_all($query);
+			$result = mysqli_num_rows($query);
 			
-			//var_dump($detalle);
-			//print_r($detalle);
+			if($result >0)
+			{
+				$row = mysqli_fetch_assoc($query);
+				//print_r($row);
+				echo $row['Cantidad_existencia'];
+			}else{
+				echo 'error';
+			}
+		}
 
-			
-				foreach ($detalle as $nivel_dos) {
-					if ($nivel_dos[9]==$b && $nivel_dos[10] == $e && $nivel_dos[11] == $n) {
-						echo $existenica = $nivel_dos[15];
-					}
+
+		//crear la tabla detalle
+		if ($_POST['action'] == 'addProductoDetalle') 
+		{
+			// print_r($_POST); //para verificar que datos estoy enviado
+			// exit;
+			$producto_id = $_POST['producto_id'];
+			$cantidad = $_POST['cantidad'];
+			$costo = $_POST['costo'];
+			$nivel_id = $_POST['nivel_id'];
+			$orden_id = $_POST['orden_id'];
+			$usuario_id = $_SESSION['idUsu'];
+
+			$detalleTabla = ''; 
+			$sql = "call sp_insertarTempMovimiento_wvp ($producto_id,$nivel_id,$cantidad,$costo,$usuario_id,$orden_id)";
+			$query = mysqli_query($cnnAux1,$sql);
+			$result = mysqli_num_rows($query);
+			$sub_total = 0;
+			$total = 0;
+			if($result >0)
+			{
+
+				while ( $data = mysqli_fetch_assoc($query) ) 
+				{
+					$precioTotal = round($data['cantidad'] * $data['costo'], 2 );
+					$sub_total = round($sub_total + $precioTotal,2);
+					$total = round($total + $precioTotal,2);
+
+					$detalleTabla .= '
+										<tr>
+											<td>'.$data['id_producto'].'</td>
+											<td colspan="2">'.$data['producto'].'</td>
+											<td>'.$data['bodega'].'</td>
+											<td>'.$data['estante'].'</td>
+											<td>'.$data['nivel'].'</td>
+											<td>'.$data['cantidad'].'</td>
+											<td>'.$data['costo'].'</td>
+											<td class="">
+												<a href="link_delete" href="#" onclick="event.preventDefault(); del_product_detalle('.$data['id_producto'].');"><i class="far fa-trash-alt">borrar</i></a>
+											</td>
+										</tr>
+						';
 				}
+
+				$detalleTotal = '
+
+									<tr>
+										<td colspan="7" class="textleft">COSTO</td>
+										<td class="textright">'.$total.'</td>
+									</tr>
+
+								';
+				//print_r($row);
+				$arrayData['detalle'] = $detalleTabla;
+				$arrayData['totales'] = $detalleTotal;
+
+				echo json_encode($arrayData,JSON_UNESCAPED_UNICODE);
+
+			}else{
+				echo 'error';
+			}
+			exit;
+
+		}
+
+		//tabla detalle
+		if ($_POST['action'] == 'searchForDetalle') 
+		{
+			// print_r($_POST); //para verificar que datos estoy enviado
+			// exit;
 			
+			$usuario_id = $_SESSION['idUsu'];
+
+			$detalleTabla = ''; 
+			$sql = "SELECT p.id_producto, p.Nombre as producto, b.Nombre as bodega, e.Nombre as estante, n.Nivel as nivel, t.cantidad, t.costo, t.id_orden, t.id_usuario  FROM temp_movimientos t INNER JOIN
+			productos p ON p.id_producto = t.id_producto INNER JOIN
+		    nivel n ON n.id_nivel = t.id_nivel INNER JOIN
+		    estante e ON e.id_estante = n.id_estante INNER JOIN
+		    bodega b ON b.id_bodega = e.id_bodega
+			WHERE t.id_usuario = '$usuario_id';";
+
+
+			//$sql = "call sp_insertarTempMovimiento_wvp ($producto_id,$nivel_id,$cantidad,$costo,$usuario_id,$orden_id)";
+			$query = mysqli_query($cnnAux1,$sql);
+			$result = mysqli_num_rows($query);
+			$sub_total = 0;
+			$total = 0;
+			if($result >0)
+			{
+
+				while ( $data = mysqli_fetch_assoc($query) ) 
+				{
+					$precioTotal = round($data['cantidad'] * $data['costo'], 2 );
+					$sub_total = round($sub_total + $precioTotal,2);
+					$total = round($total + $precioTotal,2);
+
+					$detalleTabla .= '
+										<tr>
+											<td>'.$data['id_producto'].'</td>
+											<td colspan="2">'.$data['producto'].'</td>
+											<td>'.$data['bodega'].'</td>
+											<td>'.$data['estante'].'</td>
+											<td>'.$data['nivel'].'</td>
+											<td>'.$data['cantidad'].'</td>
+											<td>'.$data['costo'].'</td>
+											<td class="">
+												<a href="link_delete" href="#" onclick="event.preventDefault(); del_product_detalle('.$data['id_producto'].');"><i class="far fa-trash-alt">borrar</i></a>
+											</td>
+										</tr>
+						';
+				}
+
+				$detalleTotal = '
+
+									<tr>
+										<td colspan="7" class="textleft">COSTO</td>
+										<td class="textright">'.$total.'</td>
+									</tr>
+
+								';
+				//print_r($row);
+				$arrayData['detalle'] = $detalleTabla;
+				$arrayData['totales'] = $detalleTotal;
+
+				echo json_encode($arrayData,JSON_UNESCAPED_UNICODE);
+
+			}else{
+				echo 'error';
+			}
+			exit;
+
 		}
 
 		
-	}
+	}//fin POST
 
 	function unique_multidim_array($array, $key) 
 	{

@@ -5,6 +5,13 @@
 	padding: 0;
 	box-sizing: border-box;
 }
+
+.img_centrado{
+	padding: 200px;
+	display:block;
+	margin-left: auto;
+	margin-right: auto;
+}
 body{
 	background: #ededed;
 }
@@ -315,7 +322,7 @@ margin-top:10px
 /*============ Ventas ============*/
 .datos_cliente, .datos_venta, .title_page{
 	width: 100%;
-	max-width: 900px;
+	max-width: 1000px;
 	margin: auto;
 	margin-bottom: 20px;
 }
@@ -377,7 +384,7 @@ margin-top:10px
 	display: none;
 }
 .tbl_venta{
-	max-width: 900px;
+	max-width: 1000px;
 	margin: auto;
 }
 .tbl_venta tfoot td{

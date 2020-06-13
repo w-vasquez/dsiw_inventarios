@@ -16,7 +16,7 @@
 		?>
 		
 
-		<table>
+		<table class="load">
 			<tr>
                 <th>ID</th>
 				<th>Código</th>

@@ -96,12 +96,19 @@
 	}
 	
 
-		public $lista;
+	public $lista;
 
-		function __construct()
-		{
-			$this -> lista = array();
-		}
+	function __construct()
+	{
+		$this -> lista = array();
+	}
+
+	public function consultaGraficio($cnn)
+	{
+		$sql = "call sp_Productos_vendidos";
+		$query = mysqli_query($cnn,$sql);
+		return $query;
+	}
 		
 	public function ConsultaUnProducto($cnn,$_id_producto)
 	{

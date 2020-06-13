@@ -327,13 +327,13 @@
 			session_start();	
 			$cProveedor -> lista_proveedor($cnn);
 			break;
-		case 'registro_entrada':
+		case 'registro_movimiento':
 			session_start();
 			$cConcepto = new cConcepto();
 			$lista_bodega = $cBodega -> get_bodega($cnn);
 			mysqli_close($cnn);
 			$lista_concepto = $cConcepto -> get_concepto($cnnAux1,1);
-			require 'vista/movimiento/registro_entrada.php';
+			require 'vista/movimiento/registro_movimiento.php';
 			break;
 		case 'lista_inventario';
 			require 'controlador/inventario/cInventario.php';
@@ -341,6 +341,27 @@
 			$cInventario = new cInventario();
 			$cInventario -> lista_inventario($cnn);
 			break;
+
+		case 'grafico_productos':
+
+			$cProducto->llamarConsulta($cnn);
+			
+			//print_r($lista);
+		break;
+
+		case 'graph_pie_preductos':
+			require 'controlador/inventario/cInventario.php';
+			session_start();
+			$cInventario = new cInventario();
+			$cInventario->consulta_distribucion_costos();
+
+		case 'graph_barras_preductos':
+		require 'controlador/inventario/cInventario.php';
+			session_start();
+			$cInventario = new cInventario();
+			$cInventario->consulta_barras_costos();
+			break;
+				
 		default:
 			# code...
 			break;
